@@ -28,25 +28,31 @@ $(document).ready(function(){
 		$('body>h1').html($('input[type=text]').val());
 	});
 */
+
+	var json = {
+		name: 'alamin',
+		dept: 'cs'
+	};
+
+	var obj = JSON.stringfy(json);
+
 	$('input[type=button]').on('click', function(){
 		
 		$.ajax({
 			url:'abc.php',
 			method: 'GET',
 			data: {
-				id: $('input[type=text]').val()
+				mydata: obj
 			},
 			success: function(response){
 				//var obj = JSON.parse(response);
-				alert(response.name);
+				alert(response);
 			},
 			error: function(error){
 				alert(error.status);
 			}
 		});
 	});
-
-
 });
 
 
