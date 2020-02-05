@@ -28,9 +28,11 @@ var requestHandler = function(request, response){
 		//response.write('Login page');
 		//response.end();
 
-		var data = fs.readFileSync('login.html');
+		/*var data = fs.readFileSync('login.html');
 		response.write(data.toString());
-		response.end();
+		response.end();*/
+
+		fs.createReadStream('login.html').pipe(response);
 
 	}else{
 		response.write('Opps! Invalid request!');
