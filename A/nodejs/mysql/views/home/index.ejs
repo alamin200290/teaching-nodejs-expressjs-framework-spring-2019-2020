@@ -5,11 +5,14 @@
 </head>
 <body>
 	<div>
-			<h2>Welcome home, <%= username%></h2> 		
+			<h2>Welcome home, <%= user.username%></h2> 		
 	</div>
 
+	<a href="/home/view_users">view users</a> |
 	<a href="/logout">Logout</a><br>
-	Name:  <%= name %> <br>
-	Id: <%= data2.version %>
+	Username:  <%= user.username %> <br>
+	Id: <%= user.id %> <br>
+	Password: <%= user.password %> <br>
+	Type: <%= user.type %>
 </body>
 </html>

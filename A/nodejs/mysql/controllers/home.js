@@ -1,24 +1,33 @@
 var express = require('express');
 var router = express.Router();
+var db = require.main.require('./models/db');
 
 router.get('/', function(req, res){
 
 	//req.session.username != null
 
 	if(req.cookies['username'] != null){
-		var data ={
-			username: req.cookies['username'],
-			name: 'alamin',
-			id: '22-334-3',
-			data2:{
-				version: 2
-			}
-		};	
-
+		var data = {
+			user: req.session.abc
+		}
 		res.render('home/index', data);
 	}else{
 		res.redirect('/login');
 	}
 });
+
+router.get('/view_users', function(req, res){
+	
+	var sql ="SELECT * FROM user";
+		db.getResults(sql, function(results){
+			if(results.length > 0){
+				res.render('home/view_users', {userlist: results});
+			}else{
+				res.redirect('/home');
+			}
+		});
+});
+
+
 
 module.exports = router;
