@@ -1,26 +1,48 @@
 var express = require('express');
 var router = express.Router();
+var mysql      	= require('mysql');
 
 router.get('/', function(req, res){
-
 	//req.session.username != null	
-	if(req.cookies['username'] != null){
-
-			var data ={
-				username: req.cookies['username'],
-				name: 'atp-3',
-				classroom: 'CL-6',
-				obj2: {
-					version: '4.8.4'
-				}
-			};
-	
-		res.render('home/index', data);
+	if(req.cookies['username'] != null){		
+		res.render('home/index', {user: req.session.user});
 	}else{
 		res.redirect('/logout');
 	}
-	
 });
+
+router.get('/alluser', function(req, res){
+
+var connection = mysql.createConnection({
+	  host     : 'localhost',
+	  user     : 'root',
+	  password : '',
+	  database : 'node1'
+	});
+
+
+	connection.connect(function(err) {
+	  if (err) {
+	    console.error('error connecting: ' + err.stack);
+	    return;
+	  }
+	  console.log('connected as id ' + connection.threadId);
+	});
+
+	var sql = "SELECT * FROM user";
+	connection.query(sql, function (error, results) {
+		if(!error){
+			res.render('home/alluser', {userlist: results});
+		}else{
+			res.send('invalid username/password');
+		}
+	});
+
+	connection.end(function(err) {
+	 console.log('connection closed!');
+	});
+
+})
 
 module.exports = router;
 
