@@ -4,11 +4,12 @@ var mysql      	= require('mysql');
 
 router.get('/', function(req, res){
 	
-	if(req.cookies['username'] != null){		
-		res.render('home/index', {user: req.session.user});
+	console.log(req.session);	
+	/*if(req.cookies['username'] != null){		
+		res.render('home/index', {user: req.session.abc});
 	}else{
 		res.redirect('/logout');
-	}
+	}*/
 });
 
 router.get('/alluser', function(req, res){

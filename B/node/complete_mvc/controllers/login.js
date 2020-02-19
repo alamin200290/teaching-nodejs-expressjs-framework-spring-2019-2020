@@ -13,13 +13,17 @@ router.post('/', function(req, res){
 		db.getResult(sql, function(result){
 
 			if(result != null){
-				req.session.user = result;
-				res.cookie('username', result.username);
+				//console.log(result);
+				req.session.abc = result;
+				res.cookie('username', user.username);
+				
 				res.redirect('/home');
 			}else{
 				res.redirect('/login');
 			}
 		});
+
+
 });
 
 module.exports = router;
