@@ -1,6 +1,6 @@
 var express 	= require('express');
 var router 		= express.Router();
-var db			= require.main.require('./models/db');
+var userModel	= require.main.require('./models/user-model');
 
 router.get('/', function(req, res){
 	console.log('login page requested!');
@@ -9,21 +9,19 @@ router.get('/', function(req, res){
 
 router.post('/', function(req, res){
 		
-		var sql = "SELECT * FROM user WHERE username='"+req.body.uname+"' and password='"+req.body.password+"'";
-		db.getResult(sql, function(result){
+		var user ={
+			uname: req.body.uname,
+			password: req.body.password
+		};
 
-			if(result != null){
-				//console.log(result);
-				req.session.abc = result;
-				res.cookie('username', user.username);
-				
+		userModel.validate(user, function(status){
+			if(status){
+				res.cookie('username', req.body.uname);
 				res.redirect('/home');
 			}else{
 				res.redirect('/login');
 			}
 		});
-
-
 });
 
 module.exports = router;
