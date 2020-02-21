@@ -27,6 +27,15 @@ app.get('/', function(req, res){
 	res.render('index');
 });
 
+app.get('/user/:id/:name', function(req, res){
+
+	var id = req.params.id;
+	var name = req.params.name;
+
+	res.render('index');
+});
+
+
 //server startup
 app.listen(3000, function(){
 	console.log('server started at 3000!');

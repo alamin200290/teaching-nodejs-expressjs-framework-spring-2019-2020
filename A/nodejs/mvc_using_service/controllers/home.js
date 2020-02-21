@@ -24,6 +24,29 @@ router.get('/view_users', function(req, res){
 		});
 });
 
+router.get('/edit/:id', function(req, res){
+	
+		userModel.getById(req.params.id, function(result){
+			res.render('home/edit', {user: result});
+		});
+});
 
+router.post('/edit/:id', function(req, res){
+	
+		var user = {
+			id: req.params.id,
+			username: req.body.username,
+			password: req.body.password,
+			type: req.body.type
+		};
+
+		userModel.update(user, function(status){
+			if(status){
+				res.redirect('/home/view_users');
+			}else{
+				res.redirect('/home/edit/'+req.params.id);
+			}
+		});
+});
 
 module.exports = router;

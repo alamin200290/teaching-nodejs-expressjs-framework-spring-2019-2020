@@ -17,6 +17,7 @@
 			<td>Username</td>
 			<td>Password</td>
 			<td>Type</td>
+			<td>Action</td>
 		</tr>
 		<% for(var i=0; i < userlist.length; i++){ %>
 		<tr>
@@ -24,6 +25,10 @@
 			<td><%= userlist[i].username %></td>
 			<td><%= userlist[i].password %></td>
 			<td><%= userlist[i].type %></td>
+			<td>
+				<a href="/edit/3">EDIT</a> | 
+				<a href="/delete">DELETE</a>  
+			</td>
 		</tr>
 		<% } %>
 	</table>

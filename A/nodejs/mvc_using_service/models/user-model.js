@@ -41,5 +41,35 @@ module.exports= {
 				callback(null);
 			}
 		});
+	},
+	insert: function(user, callback){
+		var sql = "insert into user .............";
+		db.getResults(sql, function(status){
+			if(status){
+				callback(true);
+			}else{
+				callback(false);
+			}
+		});
+	},
+	update : function(user, callback){
+		var sql = "update user set username='"+user.username+"', password='"+user.password+"', type='"+user.type+"' where id="+user.id;
+		db.getResults(sql, function(status){
+			if(status){
+				callback(true);
+			}else{
+				callback(false);
+			}
+		});
+	},
+	delete : function(user, callback){
+		var sql = "Delete user  where id="+user.id;
+		db.getResults(sql, function(status){
+			if(status){
+				callback(true);
+			}else{
+				callback(false);
+			}
+		});
 	}
 }
