@@ -17,6 +17,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(exSession({secret: 'my top secret value', saveUninitialized: true, resave: false}));
 app.use(cookieParser());
 
+app.use('/abc', express.static('xyz'));
+app.use('/admin', express.static('abc'));
+
 app.use('/login', login);
 app.use('/home', home);
 app.use('/logout', logout);

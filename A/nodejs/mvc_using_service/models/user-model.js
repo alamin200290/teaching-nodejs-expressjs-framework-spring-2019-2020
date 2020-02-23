@@ -2,8 +2,8 @@ var db = require('./db');
 
 module.exports= {
 	getById : function(id, callback){
-		var sql = "select * from user where id="+id;
-		db.getResults(sql, function(results){
+		var sql = "select * from user where id=?";
+		db.getResults(sql, [id], function(results){
 			if(results.length > 0){
 				callback(results[0]);
 			}else{
@@ -13,7 +13,7 @@ module.exports= {
 	},
 	getAll : function(callback){
 		var sql = "select * from user";
-		db.getResults(sql, function(results){
+		db.getResults(sql, null, function(results){
 			if(results.length > 0){
 				callback(results);
 			}else{
@@ -22,8 +22,8 @@ module.exports= {
 		});
 	},
 	validate: function(user, callback){
-		var sql ="SELECT * FROM user where username='"+user.username+"' and password='"+user.password+"'";
-		db.getResults(sql, function(results){
+		var sql ="SELECT * FROM user where username=? and password=?";
+		db.getResults(sql, [user.username, user.password], function(results){
 
 			if(results.length > 0){
 				callback(true);
@@ -32,9 +32,9 @@ module.exports= {
 			}
 		});
 	},
-	getByUname : function(username, callback){
-		var sql = "select * from user where username='"+username+"'";
-		db.getResults(sql, function(results){
+	getByUname: function(username, callback){
+		var sql = "select * from user where username=?";
+		db.getResults(sql, [username], function(results){
 			if(results.length > 0){
 				callback(results[0]);
 			}else{
@@ -43,8 +43,8 @@ module.exports= {
 		});
 	},
 	insert: function(user, callback){
-		var sql = "insert into user .............";
-		db.getResults(sql, function(status){
+		var sql = "insert into user values(?,?,?,?)";
+		db.execute(sql, [null, user.username, user.password, user.type], function(status){
 			if(status){
 				callback(true);
 			}else{
@@ -53,8 +53,8 @@ module.exports= {
 		});
 	},
 	update : function(user, callback){
-		var sql = "update user set username='"+user.username+"', password='"+user.password+"', type='"+user.type+"' where id="+user.id;
-		db.getResults(sql, function(status){
+		var sql = "update user set username=?, password=?, type=? where id=?";
+		db.execute(sql, [user.username, user.password, user.type, user.id], function(status){
 			if(status){
 				callback(true);
 			}else{
@@ -62,9 +62,9 @@ module.exports= {
 			}
 		});
 	},
-	delete : function(user, callback){
-		var sql = "Delete user  where id="+user.id;
-		db.getResults(sql, function(status){
+	delete: function(user, callback){
+		var sql = "delete from user where id=?";
+		db.execute(sql, [user.id], function(status){
 			if(status){
 				callback(true);
 			}else{
