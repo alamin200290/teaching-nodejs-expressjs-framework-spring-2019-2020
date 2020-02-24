@@ -13,7 +13,9 @@ var app = express();
 //configuration
 app.set('view engine', 'ejs');
 
+
 //middleware
+app.use('/abc', express.static('xyz'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(exSession({secret: 'my top secret value', saveUninitialized: true, resave: false}));
 app.use(cookieParser());
@@ -27,13 +29,6 @@ app.get('/', function(req, res){
 	res.render('index');
 });
 
-app.get('/user/:id/:name', function(req, res){
-
-	var id = req.params.id;
-	var name = req.params.name;
-
-	res.render('index');
-});
 
 
 //server startup

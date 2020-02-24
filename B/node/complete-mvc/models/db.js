@@ -20,29 +20,52 @@ var getConnection = function(callback){
 }
 
 module.exports ={
-	getResult: function(sql, callback){
+	getResult: function(sql, params, callback){
 		getConnection(function(connection){
-			connection.query(sql, function(error, results){
-				if(!error){
-					callback(results);
-				}else{
-					callback(null);
-				}
-			});
+
+			if(params == null){
+				connection.query(sql, function(error, results){
+					if(!error){
+						callback(results);
+					}else{
+						callback(null);
+					}
+				});
+			}else{
+				connection.query(sql, params, function(error, results){
+					if(!error){
+						callback(results);
+					}else{
+						callback(null);
+					}
+				});
+			}
+
 			connection.end(function(error){
 				console.log('connection end!');
 			});	
 		});
 	},
-	execute: function(sql, callback){
+	execute: function(sql, params, callback){
 		getConnection(function(connection){
-			connection.query(sql, function(error, status){
-				if(status){
-					callback(true);
-				}else{
-					callback(false);
-				}
-			});
+
+			if(params == null){
+				connection.query(sql, function(error, status){
+					if(status){
+						callback(true);
+					}else{
+						callback(false);
+					}
+				});
+			}else{
+				connection.query(sql, params, function(error, status){
+					if(status){
+						callback(true);
+					}else{
+						callback(false);
+					}
+				});
+			}
 			connection.end(function(error){
 				console.log('connection end!');
 			});	

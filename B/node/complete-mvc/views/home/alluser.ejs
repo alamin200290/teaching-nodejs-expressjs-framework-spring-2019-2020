@@ -26,8 +26,8 @@
 			<td><%= userlist[i].password %></td>
 			<td><%= userlist[i].type %></td>
 			<td>
-				<a href="/edit/3">EDIT</a> | 
-				<a href="/delete">DELETE</a>  
+				<a href="/home/edit/<%= userlist[i].id %>">EDIT</a> | 
+				<a href="/home/delete/<%= userlist[i].id %>">DELETE</a>  
 			</td>
 		</tr>
 		<% } %>

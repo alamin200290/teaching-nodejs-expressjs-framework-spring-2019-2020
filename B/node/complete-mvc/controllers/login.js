@@ -10,7 +10,7 @@ router.get('/', function(req, res){
 router.post('/', function(req, res){
 		
 		var user ={
-			uname: req.body.uname,
+			username: req.body.uname,
 			password: req.body.password
 		};
 
